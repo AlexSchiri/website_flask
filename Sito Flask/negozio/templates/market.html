@@ -1,0 +1,66 @@
+{% extends "home.html" %}
+
+{% block title %}
+pagina negozio       
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h1>Servizi SPA</h1>
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Servizio</th>
+            <th>Codice</th>
+            <th>Prezzo</th>
+            <th>Opzioni</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          {% include 'includes/modals.html' %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.servizio }}</td>
+            <td>{{ item.codice }}</td>
+            <td>€ {{ item.prezzo }}</td>
+            <td>
+              <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#Modal-MoreInfo-{{ item.id }}">Maggiori informazioni</button>
+              <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#Modal-PurchaseConfirm-{{ item.id }}">Aggiungi</button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-4">
+      <h2>Carrello</h2>
+      <p>Scegli un prodotto per inserirlo nel carrello</p>
+      <br>
+      <div class="row">
+        {% for owned_item in owned_items %}
+          <div class="col-md-6">
+            <div class="card text-center mb-3">
+              <div class="card-body">
+                <h5 class="card-title">{{ owned_item.servizio }}</h5>
+                <p class="card-text"><strong>Prezzo {{ owned_item.prezzo }} Euro</strong></p>
+                <p class="card-text"><strong>Qta acquistata: {{ owned_item.qta }} </strong></p>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Modal-SellingConfirm-{{ owned_item.id }}">
+                  Rilascia questo servizio
+                </button>
+              </div>
+            </div>
+          </div>
+          {% include 'includes/own_modals.html' %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>  
+</div>
+
+{% endblock content %}
