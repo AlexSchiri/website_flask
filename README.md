@@ -1,1 +1,1 @@
-A small e-commerce written in Flask, the python framework
+A small e-commerce written in Flask. Data stored in a Sqlite DB.
